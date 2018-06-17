@@ -2,10 +2,10 @@
   <div id="app">
     <img src="./assets/logo.png">
     <div style="display: flex;">
-      <div style="width: 50%; height: 40rem; position:relative">
+      <div style="width: 50%; height: 20rem; position:relative">
         <oc-molecule-moljs v-bind:cjson.prop="molecules[0]" />
       </div>
-      <div style="width: 50%; height: 40rem; position:relative">
+      <div style="width: 50%; height: 20rem; position:relative">
         <oc-molecule-moljs v-bind:cjson.prop="molecules[1]" />
       </div>
     </div>

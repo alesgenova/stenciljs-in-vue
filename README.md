@@ -19,7 +19,7 @@ The starter Vue app was created with [Vue CLI](https://cli.vuejs.org/).
 ## 0: Build a stenciljs component and publish it to npm
 Creating your first stencil component is very easy and it is well documented [here](https://stenciljs.com/docs/my-first-component). 
 
-In this example I am consuming the [@openchemistry/molecule-moljs](https://github.com/OpenChemistry/oc-web-components/tree/master/packages/molecule-moljs) compoent.
+This example will consume the [@openchemistry/molecule-moljs](https://github.com/OpenChemistry/oc-web-components/tree/master/packages/molecule-moljs) compoent.
 
 ## 1: Add the component to the dependencies
 
@@ -34,7 +34,7 @@ Add the component to the app dependencies in `package.json`
 }
 ```
 
-In order to have the component code bundled with the app, we need to copy the `dist/` folder of the component into the `public/` folder of the app. We can automate this by adding a `postinstall` command.
+In order to have the component code bundled with the app, copy the `dist/` folder of the component into the `public/` folder of the app. This can be automated by adding a `postinstall` command.
 
 ```json
 // package.json
@@ -46,20 +46,20 @@ In order to have the component code bundled with the app, we need to copy the `d
 ```
 
 ## 2: Load the component
-Now that the component code is in the `public/molecule-moljs` folder, you can add the following to the `public/index.html` file.
+Now that the component code is in the `public/molecule-moljs` folder, add the following to the `public/index.html` file.
 ```html
 <script src="molecule-moljs/molecule-moljs.js"></script>
 ```
 
 ## 3: Consume the component
-To prevent Vue from complaining that your component has an unrecognized tag, add the following in `main.js`. You can use either the full name, or regex if you want to capture a family of components.
+To prevent Vue from complaining that your component has an unrecognized tag, add the following in `main.js`. Use either the full name, or regex if you want to capture a family of components.
 ```js
 Vue.config.ignoredElements = [
   "oc-molecule-moljs"
 ];
 ```
 
-You can now use the tag provided by the stencil component in any template of the app.
+It is now possible to use the tag provided by the stencil component in any template of the app.
 
 ```html
 <oc-molecule-moljs v-bind:cjson.prop="molecule" />
