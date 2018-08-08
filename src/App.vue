@@ -1,13 +1,11 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <div style="display: flex;">
-      <div style="width: 50%; height: 20rem; position:relative">
-        <oc-molecule-moljs v-bind:cjson.prop="molecules[0]" />
-      </div>
-      <div style="width: 50%; height: 20rem; position:relative">
-        <oc-molecule-moljs v-bind:cjson.prop="molecules[1]" />
-      </div>
+    <div style="width: 100%; height: 20rem;">
+      <split-me n="2">
+        <oc-molecule-vtkjs slot="0" v-bind:cjson.prop="molecules[0]" />
+        <oc-molecule-vtkjs slot="1" v-bind:cjson.prop="molecules[1]" />
+      </split-me>
     </div>
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>

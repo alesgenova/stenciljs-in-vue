@@ -5,13 +5,13 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint",
-    "postinstall": "cp -R node_modules/@openchemistry/molecule-moljs/dist public/molecule-moljs"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "vue": "^2.5.16",
-    "@openchemistry/molecule-moljs": "^0.0.7",
-    "@openchemistry/sample-data": "^0.0.5"
+    "@openchemistry/molecule-vtkjs": "^0.1.9",
+    "@openchemistry/sample-data": "^0.3.3",
+    "split-me": "^0.3.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-beta.15",

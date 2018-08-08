@@ -11,17 +11,19 @@ The starter Vue app was created with [Vue CLI](https://cli.vuejs.org/).
 - [Stencil components in Angular](https://github.com/alesgenova/stenciljs-in-angular.git)
 
 ## Table of contents
-- [Add the component to the dependencies](#1-add-the-component-to-the-dependencies)
-- [Load the component](#2-load-the-component)
+- [Add the component(s) to the dependencies](#1-add-the-components-to-the-dependencies)
+- [Import the component(s)](#2-import-the-components)
 - [Consume the component](#3-consume-the-component)
 - [Appendix: Attribute vs Prop](#appendix-attribute-vs-prop)
 
 ## 0: Build a stenciljs component and publish it to npm
 Creating your first stencil component is very easy and it is well documented [here](https://stenciljs.com/docs/my-first-component). 
 
-This example will consume the [@openchemistry/molecule-moljs](https://github.com/OpenChemistry/oc-web-components/tree/master/packages/molecule-moljs) component.
+This example will consume two components:
+- [@openchemistry/molecule-vtkjs](https://github.com/OpenChemistry/oc-web-components/tree/master/packages/molecule-vtkjs) : To display molecular structures
+- [split-me](https://github.com/alesgenova/split-me) : To create resizable split layouts
 
-## 1: Add the component to the dependencies
+## 1: Add the component(s) to the dependencies
 
 Add the component to the app dependencies in `package.json`
 
@@ -30,47 +32,42 @@ Add the component to the app dependencies in `package.json`
 
 "dependencies": {
   ...
-  "@openchemistry/molecule-moljs": "^0.0.7"
+  "@openchemistry/molecule-vtkjs": "^0.1.9",
+  "split-me": "^0.3.1"
 }
 ```
 
-In order to have the component code bundled with the app, copy the `dist/` folder of the component into the `public/` folder of the app. This can be automated by adding a `postinstall` command.
+## 2: Import the component(s)
+Import the component in the `main.js` of the app:
+```js
+import { defineCustomElements as defineMolecule } from '@openchemistry/molecule-vtkjs';
+import { defineCustomElements as defineSplitMe } from 'split-me';
 
-```json
-// package.json
-
-"scripts": {
-    ...
-    "postinstall": "cp -R node_modules/@openchemistry/molecule-moljs/dist public/molecule-moljs"
-  }
-```
-
-## 2: Load the component
-Now that the component code is in the `public/molecule-moljs` folder, add the following to the `public/index.html` file.
-```html
-<script src="molecule-moljs/molecule-moljs.js"></script>
+defineMolecule(window);
+defineSplitMe(window);
 ```
 
 ## 3: Consume the component
 To prevent Vue from complaining that your component has an unrecognized tag, add the following in `main.js`. Use either the full name, or regex if you want to capture a family of components.
 ```js
 Vue.config.ignoredElements = [
-  "oc-molecule-moljs"
+  "oc-molecule-vtkjs",
+  "split-me"
 ];
 ```
 
 It is now possible to use the tag provided by the stencil component in any template of the app.
 
 ```html
-<oc-molecule-moljs v-bind:cjson.prop="molecule" />
+<oc-molecule-vtkjs v-bind:cjson.prop="molecule" />
 ```
 
 ## Appendix: Attribute vs Prop
-`oc-molecule-moljs` has a property named `cjson` that expects an object (or a JSON.stringified object).
+`oc-molecule-vtkjs` has a property named `cjson` that expects an object (or a JSON.stringified object).
 
 Strings can be passed directly as attributes to a stencil component.
 ```html
-<oc-molecule-moljs v-bind:cjson="moleculeStr" />
+<oc-molecule-vtkjs v-bind:cjson="moleculeStr" />
 ```
 
 While this would work, it is probably a good idea to avoid the `JSON.stringify()` and `JSON.parse()` and directly pass the object itself to the component.
@@ -78,5 +75,5 @@ While this would work, it is probably a good idea to avoid the `JSON.stringify()
 Vue provides a way to explicitly pass the object as a property rather than an attribute, it is as simple as adding `.prop` to the property name of the stencil component.
 
 ```html
-<oc-molecule-moljs v-bind:cjson.prop="molecule" />
+<oc-molecule-vtkjs v-bind:cjson.prop="molecule" />
 ```
